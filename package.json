@@ -1,0 +1,40 @@
+{
+  "name": "@intouchgroup/esnext-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate build process to handle ESNext",
+  "main": "bundle.js",
+  "scripts": {
+    "start": "npm run serve",
+    "clean": "rimraf ./dist/",
+    "build": "npm run clean && webpack",
+    "watch": "npm run clean && webpack -w",
+    "serve": "webpack-dev-server --open"
+  },
+  "keywords": [
+    "esnext",
+    "boilerplate",
+    "build process",
+    "webpack",
+    "babel",
+    "polyfills"
+  ],
+  "author": "Intouch Group",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "7.7.4",
+    "@babel/preset-env": "7.7.4",
+    "@intouchgroup/eslint-config": "^2.0.0",
+    "autoprefixer": "9.7.2",
+    "babel-loader": "8.0.6",
+    "copy-webpack-plugin": "5.0.5",
+    "core-js": "3.4.3",
+    "eslint": "6.7.1",
+    "eslint-loader": "3.0.2",
+    "file-loader": "5.0.2",
+    "path": "0.12.7",
+    "rimraf": "3.0.0",
+    "webpack": "4.41.2",
+    "webpack-cli": "3.3.10",
+    "webpack-dev-server": "3.9.0"
+  }
+}
