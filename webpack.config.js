@@ -1,7 +1,5 @@
 'use strict';
 
-const DEVELOPMENT_MODE = true;
-
 const path = require('path');
 const PluginCopy = require('copy-webpack-plugin');
 
@@ -13,8 +11,8 @@ const SOURCE_DIRECTORY = path.resolve(__dirname, 'src');
 
 const OUTPUT_DIRECTORY = path.resolve(__dirname, 'dist');
 
-const commonConfig = {
-	mode: DEVELOPMENT_MODE ? 'development' : 'production',
+const commonConfig = (devMode) => ({
+	mode: devMode ? 'development' : 'production',
 	context: SOURCE_DIRECTORY,
 	resolve: {
 		extensions: [ '.js' ],
@@ -55,15 +53,15 @@ const commonConfig = {
 			},
 		],
 	},
-	devtool: DEVELOPMENT_MODE ? 'eval' : '', // Script source maps
+	devtool: devMode ? 'eval' : '', // Script source maps
 	performance: {
-		hints: DEVELOPMENT_MODE ? false : 'warning',
+		hints: devMode ? false : 'warning',
 	},
 	stats: 'normal',
-};
+});
 
-const appConfig = {
-	...commonConfig,
+const appConfig = (devMode) => ({
+	...commonConfig(devMode),
 	entry: [
 		'core-js/stable',
 		'./index.js',
@@ -85,7 +83,7 @@ const appConfig = {
 				},
 			],
 			{
-				info: DEVELOPMENT_MODE,
+				info: devMode,
 			},
 		),
 	],
@@ -94,8 +92,12 @@ const appConfig = {
 		hot: false,
 		historyApiFallback: true,
 	},
-};
+});
 
-module.exports = [
-	appConfig,
-];
+module.exports = (env, argv) => {
+	const devMode = argv.prod === undefined ? true : false;
+
+	return [
+		appConfig(devMode),
+	];
+};
