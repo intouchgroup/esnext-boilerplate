@@ -1,3 +1,5 @@
+import 'core-js/stable';
+
 console.log('Hello World');
 
 document.addEventListener('DOMContentLoaded', () => {
